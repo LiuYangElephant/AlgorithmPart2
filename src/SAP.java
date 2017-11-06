@@ -102,23 +102,23 @@ public class SAP {
         }
     }
 
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-//        Digraph G = new Digraph(in);
-
-        Digraph G = new Digraph(6);
-        G.addEdge(1, 0);
-        G.addEdge(1, 2);
-        G.addEdge(2, 3);
-        G.addEdge(3, 4);
-        G.addEdge(4, 5);
-        G.addEdge(5, 0);
-
-        SAP s  = new SAP(G);
-        int anc = s.ancestor(1 , 5);
-        System.out.println(anc);
-        int len = s. length(1, 5);
-        System.out.println(len);
+//    public static void main(String[] args) {
+//        In in = new In(args[0]);
+////        Digraph G = new Digraph(in);
+//
+//        Digraph G = new Digraph(6);
+//        G.addEdge(1, 0);
+//        G.addEdge(1, 2);
+//        G.addEdge(2, 3);
+//        G.addEdge(3, 4);
+//        G.addEdge(4, 5);
+//        G.addEdge(5, 0);
+//
+//        SAP s  = new SAP(G);
+//        int anc = s.ancestor(1 , 5);
+//        System.out.println(anc);
+//        int len = s. length(1, 5);
+//        System.out.println(len);
 //
 //        List<Integer> v = new ArrayList<>();
 //        v.add(4);
@@ -127,6 +127,21 @@ public class SAP {
 //        w.add(1);
 //        int anc2 = s.length(v, w);
 //        System.out.println(anc2);
+//    }
+
+
+    public static void main(String[] args) {
+        In in = new In(args[0]);
+        Digraph G = new Digraph(in);
+        SAP sap = new SAP(G);
+
+            int v = 1;
+            int w = 6;
+            int length = sap.length(v, w);
+            int ancestor = sap.ancestor(v, w);
+            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
+
+
     }
 
 }
