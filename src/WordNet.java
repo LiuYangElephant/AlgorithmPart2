@@ -1,7 +1,5 @@
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,8 +13,12 @@ public class WordNet {
 
     // constructor takes the name of the two input files
     public WordNet(String synsets, String hypernyms) {
+        if (synsets == null || hypernyms == null) {
+            throw new IllegalArgumentException();
+        }
         constructSynsets(synsets);
         constructWordNet(hypernyms);
+        checkGraphRooted();
     }
 
     private void constructSynsets(String synsets) {
@@ -57,7 +59,20 @@ public class WordNet {
                 graph.addEdge(Integer.parseInt(record[0]), Integer.parseInt(record[i]));
             }
         }
+
     }
+
+    private void checkGraphRooted() {
+        int rootNum = 0;
+        for (int i = 0; i < graph.V(); i++) {
+            if (graph.outdegree(i) == 0) {
+                rootNum++;
+            }
+        }
+        if (rootNum != 1) {
+            throw new IllegalArgumentException();
+        }
+     }
 
     // returns all WordNet nouns
     public Iterable<String> nouns() {
@@ -66,11 +81,17 @@ public class WordNet {
 
     // is the word a WordNet noun?
     public boolean isNoun(String word) {
+        if (word == null) {
+            throw new IllegalArgumentException();
+        }
         return nounToId.keySet().contains(word);
     }
 
     // distance between nounA and nounB (defined below)
     public int distance(String nounA, String nounB) {
+        if (!isNoun(nounA) || !isNoun(nounB)) {
+            throw new IllegalArgumentException();
+        }
         SAP sap = new SAP(graph);
         return sap.length(nounToId.get(nounA), nounToId.get(nounB));
     }
@@ -78,6 +99,10 @@ public class WordNet {
     // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
     // in a shortest ancestral path (defined below)
     public String sap(String nounA, String nounB) {
+        if (!isNoun(nounA) || !isNoun(nounB)) {
+            throw new IllegalArgumentException();
+        }
+
         SAP sap = new SAP(graph);
         int ancestorId = sap.ancestor(nounToId.get(nounA), nounToId.get(nounB));
         String synset = "";
@@ -86,6 +111,7 @@ public class WordNet {
         }
         return synset.substring(0, synset.length() - 1);
     }
+
 
    public static void main(String[] args) {
         String synsets = "/localdisk/Coursera/wordnet/synsets3.txt";
