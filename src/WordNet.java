@@ -7,9 +7,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class WordNet {
-    private Digraph graph;
-    private Map<String, Set<Integer>> nounToId = new HashMap<>();
-    private Map<Integer, Set<String>> idToNoun = new HashMap<>();
+    private final Digraph graph;
+    private final SAP sap;
+    private final Map<String, Set<Integer>> nounToId = new HashMap<>();
+    private final Map<Integer, Set<String>> idToNoun = new HashMap<>();
 
     // constructor takes the name of the two input files
     public WordNet(String synsets, String hypernyms) {
@@ -17,7 +18,9 @@ public class WordNet {
             throw new IllegalArgumentException();
         }
         constructSynsets(synsets);
+        graph = new Digraph(idToNoun.size());
         constructWordNet(hypernyms);
+        sap = new SAP(graph);
         checkGraphRooted();
     }
 
@@ -49,7 +52,7 @@ public class WordNet {
 
     //164,21012,56099
     private void constructWordNet(String hypernyms) {
-        graph = new Digraph(idToNoun.size());
+
         In in = new In(hypernyms);
         while (!in.isEmpty()) {
             String s = in.readLine();
@@ -84,7 +87,7 @@ public class WordNet {
         if (word == null) {
             throw new IllegalArgumentException();
         }
-        return nounToId.keySet().contains(word);
+        return nounToId.containsKey(word);
     }
 
     // distance between nounA and nounB (defined below)
@@ -92,7 +95,6 @@ public class WordNet {
         if (!isNoun(nounA) || !isNoun(nounB)) {
             throw new IllegalArgumentException();
         }
-        SAP sap = new SAP(graph);
         return sap.length(nounToId.get(nounA), nounToId.get(nounB));
     }
 
@@ -103,22 +105,22 @@ public class WordNet {
             throw new IllegalArgumentException();
         }
 
-        SAP sap = new SAP(graph);
         int ancestorId = sap.ancestor(nounToId.get(nounA), nounToId.get(nounB));
-        String synset = "";
+        StringBuilder sb = new StringBuilder();
         for (String noun : idToNoun.get(ancestorId)) {
-            synset += noun + " ";
+            sb.append(noun);
+            sb.append(" ");
         }
-        return synset.substring(0, synset.length() - 1);
+        return sb.toString().substring(0, sb.length() - 1);
     }
 
 
    public static void main(String[] args) {
-        String synsets = "/localdisk/Coursera/wordnet/synsets3.txt";
-        String hypernyms = "/localdisk/Coursera/wordnet/hypernyms3InvalidTwoRoots.txt";
-        WordNet net = new WordNet(synsets, hypernyms);
-        String ans = net.sap("a", "c");
-        System.out.println(ans);
+//        String synsets = "/localdisk/Coursera/wordnet/synsets3.txt";
+//        String hypernyms = "/localdisk/Coursera/wordnet/hypernyms3InvalidTwoRoots.txt";
+//        WordNet net = new WordNet(synsets, hypernyms);
+//        String ans = net.sap("a", "c");
+//        System.out.println(ans);
 
     }
 

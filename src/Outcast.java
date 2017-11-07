@@ -1,8 +1,8 @@
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Outcast {
-    WordNet wordnet;
+    //it is initialized only in the declaration or constructor. [ImmutableField]
+    private final WordNet wordnet;
 
     public Outcast(WordNet wordnet) {
         this.wordnet = wordnet;

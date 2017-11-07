@@ -1,11 +1,11 @@
 import edu.princeton.cs.algs4.*;
 
 public class SAP {
-    private Digraph graph;
+    private final Digraph graph;
 
     // constructor takes a digraph (not necessarily a DAG)
     public SAP(Digraph G) {
-        this.graph = G;
+        this.graph = new Digraph(G);
     }
 
     // length of shortest ancestral path between v and w; -1 if no such path
@@ -93,7 +93,7 @@ public class SAP {
         }
     }
 
-    class Result{
+    private class Result{
         int length;
         int ancestor;
         Result(int length, int ancestor) {
@@ -131,17 +131,15 @@ public class SAP {
 
 
     public static void main(String[] args) {
-        In in = new In(args[0]);
-        Digraph G = new Digraph(in);
-        SAP sap = new SAP(G);
-
-            int v = 1;
-            int w = 6;
-            int length = sap.length(v, w);
-            int ancestor = sap.ancestor(v, w);
-            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
-
-
+//        In in = new In(args[0]);
+//        Digraph G = new Digraph(in);
+//        SAP sap = new SAP(G);
+//
+//            int v = 1;
+//            int w = 6;
+//            int length = sap.length(v, w);
+//            int ancestor = sap.ancestor(v, w);
+//            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
     }
 
 }
