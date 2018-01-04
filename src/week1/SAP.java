@@ -1,4 +1,9 @@
+package week1;
+
 import edu.princeton.cs.algs4.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class SAP {
     private final Digraph graph;
@@ -62,6 +67,9 @@ public class SAP {
         int length = Integer.MAX_VALUE;
         for (int i = 0; i < graph.V(); i++) {
             if (bfsV.hasPathTo(i) && bfsW.hasPathTo(i)) {
+                if (bfsV.distTo(i) >= length || bfsW.distTo(i) >= length) {
+                    continue;
+                }
                 int len = bfsV.distTo(i) + bfsW.distTo(i);
                 if (len < length) {
                     length = len;
@@ -114,7 +122,7 @@ public class SAP {
 //        G.addEdge(4, 5);
 //        G.addEdge(5, 0);
 //
-//        SAP s  = new SAP(G);
+//        week1.SAP s  = new week1.SAP(G);
 //        int anc = s.ancestor(1 , 5);
 //        System.out.println(anc);
 //        int len = s. length(1, 5);
@@ -133,13 +141,17 @@ public class SAP {
     public static void main(String[] args) {
 //        In in = new In(args[0]);
 //        Digraph G = new Digraph(in);
-//        SAP sap = new SAP(G);
+//        week1.SAP sap = new week1.SAP(G);
 //
 //            int v = 1;
 //            int w = 6;
 //            int length = sap.length(v, w);
 //            int ancestor = sap.ancestor(v, w);
 //            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
+        List l1 = new LinkedList();
+        List l2 = new LinkedList();
+        l1.addAll(l2);
+
     }
 
 }

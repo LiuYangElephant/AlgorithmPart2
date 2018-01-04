@@ -1,10 +1,9 @@
+package week1;
+
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class WordNet {
     private final Digraph graph;
@@ -114,15 +113,6 @@ public class WordNet {
         return sb.toString().substring(0, sb.length() - 1);
     }
 
-
-   public static void main(String[] args) {
-//        String synsets = "/localdisk/Coursera/wordnet/synsets3.txt";
-//        String hypernyms = "/localdisk/Coursera/wordnet/hypernyms3InvalidTwoRoots.txt";
-//        WordNet net = new WordNet(synsets, hypernyms);
-//        String ans = net.sap("a", "c");
-//        System.out.println(ans);
-
-    }
 
 
 }
