@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.FlowNetwork;
+import edu.princeton.cs.algs4.In;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BaseballElimination {
@@ -11,7 +13,28 @@ public class BaseballElimination {
     private Map<String, int[]> teamRecords;
 
     public BaseballElimination(String filename) {
+        In in = new In(filename);
+        n = in.readInt();
 
+        indexes = new HashMap<>();
+        records = new int[n][3];
+        matches = new int[n][n];
+
+
+        for (int teamNum = 0; teamNum < n; teamNum++) {
+            String teamName = in.readString();git
+
+            for (int i = 0; i < 3; i++) {
+                records[teamNum][i] = in.readInt();
+            }
+
+            for (int i = 0; i < n; i++) {
+                matches[teamNum][i] = in.readInt();
+            }
+
+            indexes.put(teamName, teamNum);
+
+        }
     }
 
     public int numberOfTeams() {
@@ -61,7 +84,7 @@ public class BaseballElimination {
     public Iterable<String> certificateOfElimination(String team) {
         validateTeam(team);
 
-        FlowNetwork
+//        FlowNetwork
 
         return null;
     }
@@ -70,5 +93,18 @@ public class BaseballElimination {
         if (!indexes.keySet().contains(team)) {
             throw new IllegalArgumentException();
         }
+    }
+
+    public static void main(String[] args) {
+        String fileStr = "/Users/yangLiu/Coursera/AlgorithmPart2/baseball/teams4.txt";
+        In in = new In(fileStr);
+
+        BaseballElimination b = new BaseballElimination(fileStr);
+//        while(in.hasNextLine()) {
+//            System.out.println(in.readInt());
+//            System.out.println(in.readString());
+//        }
+//        System.out.println(in.readInt());
+//        System.out.println(in.readString());
     }
 }
